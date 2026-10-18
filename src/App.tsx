@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { siteContent as content } from './data/siteContent';
+import { Branch, Icon, type IconName } from './icons';
+
+const areaIcons: Record<string, IconName> = { consumidor: 'bag', 'civil-familia': 'home', bancario: 'bank', previdenciario: 'hourglass', tributario: 'receipt', contratos: 'contract' };
+const processIcons: IconName[] = ['mail', 'listen', 'steps'];
 
 const emailLink = `mailto:${content.email}?subject=${encodeURIComponent('Contato pelo site — Joyce Soares de Lima')}`;
 const navigation = [
@@ -61,6 +65,7 @@ function Header() {
 }
 function Hero() {
   return <section id="inicio" className="hero" aria-labelledby="hero-heading">
+    <Branch className="hero-branch" leaves={11} />
     <div className="container hero-grid">
       <div className="hero-copy">
         <p className="eyebrow"><span className="small-sun" aria-hidden="true">✳</span> JOYCE SOARES DE LIMA · ADVOGADA E EDUCADORA</p>
@@ -82,19 +87,19 @@ function Hero() {
 function About() {
   return <section id="sobre" className="about section-space" aria-labelledby="about-heading">
     <div className="container about-grid">
-      <div><SectionLabel number="01">SOBRE JOYCE</SectionLabel><h2 id="about-heading">Entre o direito,<br />a educação e as<br /><em>relações humanas.</em></h2>{content.portrait && <figure className="about-portrait"><img src={content.portrait.src} alt={content.portrait.alt} width={content.portrait.width} height={content.portrait.height} loading="lazy" /></figure>}</div>
+      <div><SectionLabel number="01">SOBRE JOYCE</SectionLabel><h2 id="about-heading">Entre o direito,<br />a educação e as<br /><em>relações humanas.</em></h2>{!content.portrait && <Branch className="about-branch" />}{content.portrait && <figure className="about-portrait"><img src={content.portrait.src} alt={content.portrait.alt} width={content.portrait.width} height={content.portrait.height} loading="lazy" /></figure>}</div>
       <div className="about-copy"><p className="lead">Uma atuação que parte da escuta e considera o conflito para além do dano jurídico.</p><p>Joyce Soares de Lima é advogada e educadora. Sua trajetória reúne atuação jurídica, formações em comunicação e educação e vivências comunitárias.</p><p>No direito civil, nas relações de consumo, na família e nos contratos, a proposta é compreender os elementos humanos, sociais e jurídicos de cada situação e orientar com responsabilidade.</p><a href="#trajetoria" className="text-link">Conhecer a trajetória <Arrow /></a></div>
     </div>
     <div className="container principles" aria-label="Princípios de atuação">
-      <div><span className="principle-number">I.</span><h3>Escuta ativa</h3><p>Espaço para compreender a história e o contexto de cada pessoa.</p></div>
-      <div><span className="principle-number">II.</span><h3>Diálogo</h3><p>Atenção às relações e às possibilidades de resolução de conflitos.</p></div>
-      <div><span className="principle-number">III.</span><h3>Responsabilidade social</h3><p>Um olhar para os vínculos, a comunidade e a cultura de paz.</p></div>
+      <div><span className="principle-number">I.</span><Icon name="ear" size={34} className="principle-icon" /><h3>Escuta ativa</h3><p>Espaço para compreender a história e o contexto de cada pessoa.</p></div>
+      <div><span className="principle-number">II.</span><Icon name="dialogue" size={34} className="principle-icon" /><h3>Diálogo</h3><p>Atenção às relações e às possibilidades de resolução de conflitos.</p></div>
+      <div><span className="principle-number">III.</span><Icon name="community" size={34} className="principle-icon" /><h3>Responsabilidade social</h3><p>Um olhar para os vínculos, a comunidade e a cultura de paz.</p></div>
     </div>
   </section>;
 }
 function PracticeCard({ area, index }: { area: (typeof content.practiceAreas)[number]; index: number }) {
   return <details className="practice-card">
-    <summary><span className="card-top"><span className="card-index">{String(index + 1).padStart(2, '0')}</span><span className="plus-icon" aria-hidden="true" /></span><h3>{area.title}</h3><p>{area.description}</p><span className="card-action"><span className="closed-text">Ver assuntos</span><span className="open-text">Recolher assuntos</span><Chevron /></span></summary>
+    <summary><span className="card-top"><span className="card-meta"><Icon name={areaIcons[area.id] ?? 'contract'} size={30} /><span className="card-index">{String(index + 1).padStart(2, '0')}</span></span><span className="plus-icon" aria-hidden="true" /></span><h3>{area.title}</h3><p>{area.description}</p><span className="card-action"><span className="closed-text">Ver assuntos</span><span className="open-text">Recolher assuntos</span><Chevron /></span></summary>
     <div className="practice-details"><ul>{area.items.map(item => <li key={item}>{item}</li>)}</ul></div>
   </details>;
 }
@@ -115,9 +120,9 @@ function PracticeAreas() {
   </section>;
 }
 function Process() {
-  return <section id="atendimento" className="process section-space" aria-labelledby="process-heading"><div className="container">
+  return <section id="atendimento" className="process section-space" aria-labelledby="process-heading"><Branch className="process-branch" leaves={8} flip /><div className="container">
     <div className="section-heading-row"><div><SectionLabel number="06">COMO FUNCIONA</SectionLabel><h2 id="process-heading">Do primeiro contato<br />à <em>orientação.</em></h2></div><p>Um caminho simples, sem cadastro e sem compromisso no primeiro contato.</p></div>
-    <ol className="process-steps">{content.process.map((step, index) => <li key={step.title}><span className="process-number">{String(index + 1).padStart(2, '0')}</span><h3>{step.title}</h3><p>{step.text}</p></li>)}</ol>
+    <ol className="process-steps">{content.process.map((step, index) => <li key={step.title}><span className="process-top"><Icon name={processIcons[index] ?? 'steps'} size={36} /><span className="process-number">{String(index + 1).padStart(2, '0')}</span></span><h3>{step.title}</h3><p>{step.text}</p></li>)}</ol>
     <a className="button button-primary process-cta" href={emailLink}>Escrever para Joyce <Arrow diagonal /></a>
   </div></section>;
 }
@@ -140,7 +145,7 @@ function Community() {
 }
 function Timeline() {
   return <section id="trajetoria" className="timeline-section section-space" aria-labelledby="timeline-heading"><div className="container timeline-grid">
-    <div className="timeline-intro"><SectionLabel number="04">TRAJETÓRIA</SectionLabel><h2 id="timeline-heading">Experiências que<br />ampliam o <em>olhar.</em></h2><p>Um percurso por diferentes contextos do direito, dos contratos às demandas sociais.</p><Leaf className="timeline-leaf" /></div>
+    <div className="timeline-intro"><SectionLabel number="04">TRAJETÓRIA</SectionLabel><h2 id="timeline-heading">Experiências que<br />ampliam o <em>olhar.</em></h2><p>Um percurso por diferentes contextos do direito, dos contratos às demandas sociais.</p><Branch className="timeline-branch" leaves={7} flip /></div>
     <ol className="timeline">{content.timeline.map(item => <li key={item.date}><span className="timeline-dot" aria-hidden="true" /><div className="timeline-date">{item.date}</div><h3>{item.name}</h3><p>{item.text}</p></li>)}</ol>
   </div></section>;
 }
