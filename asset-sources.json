@@ -1,0 +1,63 @@
+{
+  "verified_at": "2026-10-18",
+  "notes": "Images downloaded from identified original-page CDN links and visually inspected. WebP conversion and resizing only, no generated content. Images are illustrative and do not document Joyce or her office. All three photo pages explicitly declare free use under linked platform licenses.",
+  "assets": [
+    {
+      "file": "public/assets/hero-nature.webp",
+      "role": "Decorative tall hero illustration. Sunlight through green leaves.",
+      "author": "Nina Schneider",
+      "author_url": "https://unsplash.com/@ninaschneider",
+      "title": "sunlight shining through the leaves of a tree",
+      "source_url": "https://unsplash.com/photos/sunlight-shining-through-the-leaves-of-a-tree-tmMfjl4cadA",
+      "original_image_url": "https://images.unsplash.com/photo-1715592982544-408b9f34c49d",
+      "download_url": "https://images.unsplash.com/photo-1715592982544-408b9f34c49d?auto=format&fit=max&w=1800&q=85",
+      "license": "Unsplash License",
+      "license_url": "https://unsplash.com/license",
+      "page_declares_free_license": true,
+      "published": "2024-05-13",
+      "search_reference": "turn2view1",
+      "license_reference": "turn3view4",
+      "width": 1200,
+      "height": 1800,
+      "bytes": 185140
+    },
+    {
+      "file": "public/assets/education-reading.webp",
+      "role": "Illustration of education and reading. Open book at window, not an actual office.",
+      "author": "Ioann-Mark Kuznietsov",
+      "author_url": "https://unsplash.com/@mrrrk_smith",
+      "title": "book near glass window",
+      "source_url": "https://unsplash.com/photos/book-near-glass-window-F_cHIM0Kcy4",
+      "original_image_url": "https://images.unsplash.com/photo-1495640388908-05fa85288e61",
+      "download_url": "https://images.unsplash.com/photo-1495640388908-05fa85288e61?auto=format&fit=max&w=1800&q=85",
+      "license": "Unsplash License",
+      "license_url": "https://unsplash.com/license",
+      "page_declares_free_license": true,
+      "published": "2017-05-24",
+      "search_reference": "turn2view3",
+      "license_reference": "turn3view4",
+      "width": 1200,
+      "height": 1800,
+      "bytes": 111906
+    },
+    {
+      "file": "public/assets/nature-detail.webp",
+      "role": "Optional decorative nature detail, green young leaves.",
+      "author": "Mstudio",
+      "author_url": "https://www.pexels.com/@mstudio-360817/",
+      "title": "Selective Focus Photography of Green Leaf Plant",
+      "source_url": "https://www.pexels.com/photo/selective-focus-photography-of-green-leaf-plant-1235686/",
+      "original_image_url": "https://images.pexels.com/photos/1235686/pexels-photo-1235686.jpeg",
+      "download_url": "https://images.pexels.com/photos/1235686/pexels-photo-1235686.jpeg?auto=compress&w=1800",
+      "license": "Pexels License",
+      "license_url": "https://www.pexels.com/license/",
+      "page_declares_free_license": true,
+      "published": "2018-07-13",
+      "search_reference": "turn2view4",
+      "license_reference": "turn3view5",
+      "width": 1600,
+      "height": 1067,
+      "bytes": 54074
+    }
+  ]
+}

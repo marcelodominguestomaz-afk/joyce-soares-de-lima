@@ -1,0 +1,39 @@
+# Publicação no GitHub Pages. Executada manualmente (aba Actions → "Publicar site" → Run workflow)
+# para não publicar nada antes da revisão do conteúdo e do número da OAB.
+# Antes do primeiro uso: Settings → Pages → Source: "GitHub Actions".
+# Opcional: Settings → Secrets and variables → Actions → Variables → SITE_URL (ex.: https://joyce.adv.br)
+name: Publicar site
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
