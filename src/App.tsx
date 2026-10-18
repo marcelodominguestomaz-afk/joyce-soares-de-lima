@@ -50,6 +50,7 @@ function Header() {
       <a href="#inicio" className="wordmark" aria-label="Joyce Soares de Lima — início" onClick={() => setOpen(false)}>
         <span className="wordmark-name">Joyce Soares de Lima</span><span className="wordmark-description">ADVOCACIA & EDUCAÇÃO</span>
       </a>
+      <a className="header-mail" href={emailLink} aria-label={`Enviar e-mail para ${content.email}`}><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="1.5" stroke="currentColor" strokeWidth="1.4" /><path d="m4 7 8 6 8-6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg></a>
       <button ref={menuButton} className={`menu-toggle ${open ? 'is-open' : ''}`} aria-expanded={open} aria-controls="primary-navigation" aria-label={open ? 'Fechar menu de navegação' : 'Abrir menu de navegação'} onClick={() => setOpen(!open)}><span /><span /></button>
       <nav id="primary-navigation" className={`main-navigation ${open ? 'is-open' : ''}`} aria-label="Navegação principal">
         {navigation.map(([id, label]) => <a key={id} className={active === id ? 'active' : ''} href={`#${id}`} aria-current={active === id ? 'location' : undefined} onClick={() => setOpen(false)}>{label}</a>)}
@@ -91,17 +92,42 @@ function About() {
     </div>
   </section>;
 }
+function PracticeCard({ area, index }: { area: (typeof content.practiceAreas)[number]; index: number }) {
+  return <details className="practice-card">
+    <summary><span className="card-top"><span className="card-index">{String(index + 1).padStart(2, '0')}</span><span className="plus-icon" aria-hidden="true" /></span><h3>{area.title}</h3><p>{area.description}</p><span className="card-action"><span className="closed-text">Ver assuntos</span><span className="open-text">Recolher assuntos</span><Chevron /></span></summary>
+    <div className="practice-details"><ul>{area.items.map(item => <li key={item}>{item}</li>)}</ul></div>
+  </details>;
+}
 function PracticeAreas() {
+  let counter = 0;
   return <section id="atuacao" className="practice section-space" aria-labelledby="practice-heading">
     <div className="container">
       <div className="section-heading-row"><div><SectionLabel number="02">ÁREAS DE ATUAÇÃO</SectionLabel><h2 id="practice-heading">O direito faz parte<br />da <em>vida cotidiana.</em></h2></div><p>Proteção de vínculos, análise de contratos e orientação em momentos de mudança. Conheça os assuntos de cada área.</p></div>
-      <div className="practice-grid">{content.practiceAreas.map((area, index) => <details className="practice-card" key={area.id}>
-        <summary><span className="card-top"><span className="card-index">0{index + 1}</span><span className="plus-icon" aria-hidden="true" /></span><h3>{area.title}</h3><p>{area.description}</p><span className="card-action"><span className="closed-text">Ver assuntos</span><span className="open-text">Recolher assuntos</span><Chevron /></span></summary>
-        <div className="practice-details"><ul>{area.items.map(item => <li key={item}>{item}</li>)}</ul></div>
-      </details>)}</div>
+      {content.audiences.map(audience => {
+        const areas = content.practiceAreas.filter(area => area.audience === audience.id);
+        return <div className="practice-group" key={audience.id} aria-labelledby={`audience-${audience.id}`}>
+          <div className="practice-group-intro"><h3 id={`audience-${audience.id}`}>{audience.label}</h3><p>{audience.description}</p></div>
+          <div className="practice-grid">{areas.map(area => <PracticeCard key={area.id} area={area} index={counter++} />)}</div>
+        </div>;
+      })}
       <p className="practice-note">Cada situação exige análise própria. As informações desta página apresentam áreas de atuação e não substituem orientação jurídica individualizada.</p>
     </div>
   </section>;
+}
+function Process() {
+  return <section id="atendimento" className="process section-space" aria-labelledby="process-heading"><div className="container">
+    <div className="section-heading-row"><div><SectionLabel number="06">COMO FUNCIONA</SectionLabel><h2 id="process-heading">Do primeiro contato<br />à <em>orientação.</em></h2></div><p>Um caminho simples, sem cadastro e sem compromisso no primeiro contato.</p></div>
+    <ol className="process-steps">{content.process.map((step, index) => <li key={step.title}><span className="process-number">{String(index + 1).padStart(2, '0')}</span><h3>{step.title}</h3><p>{step.text}</p></li>)}</ol>
+    <a className="button button-primary process-cta" href={emailLink}>Escrever para Joyce <Arrow diagonal /></a>
+  </div></section>;
+}
+function Articles() {
+  if (content.articles.length === 0) return null;
+  const format = (date: string) => new Date(`${date}T12:00:00`).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+  return <section id="conteudos" className="articles section-space" aria-labelledby="articles-heading"><div className="container">
+    <div className="section-heading-row"><div><p className="eyebrow">CONTEÚDOS</p><h2 id="articles-heading">Para entender <em>seus direitos.</em></h2></div><p>Textos curtos de orientação geral. Não substituem a análise do seu caso.</p></div>
+    <div className="articles-grid">{content.articles.map(article => <a key={article.url} className="article-card" href={article.url} target="_blank" rel="noreferrer"><time dateTime={article.date}>{format(article.date)}</time><h3>{article.title}</h3><p>{article.summary}</p><span className="card-action">Ler artigo <Arrow diagonal /></span></a>)}</div>
+  </div></section>;
 }
 function Community() {
   return <section id="comunidade" className="community section-space" aria-labelledby="community-heading">
@@ -185,7 +211,7 @@ function Contact() {
     catch { setStatus('Selecione e copie o endereço de e-mail acima.'); }
   }
   return <section id="contato" className="contact" aria-labelledby="contact-heading"><div className="container contact-grid">
-    <div><SectionLabel number="06" light>CONTATO</SectionLabel><h2 id="contact-heading">Um espaço para<br /><em>ouvir sua questão.</em></h2><p>Para enviar dúvidas, solicitar orientação inicial ou apresentar uma situação jurídica, entre em contato por e-mail.</p></div>
+    <div><SectionLabel number="07" light>CONTATO</SectionLabel><h2 id="contact-heading">Um espaço para<br /><em>ouvir sua questão.</em></h2><p>Para enviar dúvidas, solicitar orientação inicial ou apresentar uma situação jurídica, entre em contato por e-mail.</p></div>
     <div className="contact-box"><span className="contact-label">ESCREVA PARA JOYCE</span><a href={emailLink} className="email-address">{content.email}<Arrow diagonal /></a><div className="contact-actions"><a href={emailLink} className="button button-light">Enviar e-mail <Arrow diagonal /></a><button type="button" onClick={copyEmail} className="copy-email">Copiar endereço <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" /><path d="M16 8V4H4v12h4" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" /></svg></button></div><p className="copy-status" role="status">{status}</p><p className="contact-disclaimer">Não envie documentos sensíveis ou informações sigilosas antes da confirmação de atendimento. O envio de uma mensagem não cria, por si só, relação advogado-cliente.</p></div>
   </div><div className="contact-decoration" aria-hidden="true"><Leaf /></div></section>;
 }
@@ -197,5 +223,5 @@ function Footer() {
   </>;
 }
 export default function App() {
-  return <><a className="skip-link" href="#main">Pular para o conteúdo</a><Header /><main id="main" tabIndex={-1}><Hero /><About /><PracticeAreas /><Community /><Timeline /><Education /><div className="nature-interlude" aria-hidden="true"><img src="./assets/nature-detail.webp" alt="" loading="lazy" width="1600" height="1067" /><div><span>ESCUTA. DIÁLOGO. COMUNIDADE.</span></div></div><Gallery /><Testimonials /><Contact /></main><Footer /></>;
+  return <><a className="skip-link" href="#main">Pular para o conteúdo</a><Header /><main id="main" tabIndex={-1}><Hero /><About /><PracticeAreas /><Community /><Timeline /><Education /><div className="nature-interlude" aria-hidden="true"><img src="./assets/nature-detail.webp" alt="" loading="lazy" width="1600" height="1067" /><div><span>ESCUTA. DIÁLOGO. COMUNIDADE.</span></div></div><Gallery /><Testimonials /><Articles /><Process /><Contact /></main><Footer /></>;
 }

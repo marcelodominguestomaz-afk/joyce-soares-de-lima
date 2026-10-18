@@ -11,13 +11,22 @@ export const siteContent = {
     heading: 'Advocacia com escuta, diálogo e responsabilidade social.',
     description: 'Atuação jurídica com escuta ativa, diálogo e compreensão dos elementos humanos, sociais e jurídicos envolvidos em cada situação.',
   },
+  audiences: [
+    { id: 'pessoas', label: 'Para você', description: 'Consumo, família, bancos e previdência: o direito nas situações do dia a dia.' },
+    { id: 'empresas', label: 'Para empresas', description: 'Contratos, tributos e organização societária com clareza e responsabilidade.' },
+  ],
   practiceAreas: [
-    { id: 'consumidor', title: 'Direito do consumidor', description: 'Relações de consumo, contratos e prestação de serviços.', items: ['Má prestação de serviços, cancelamento e nulidade de contratos', 'Demandas envolvendo energia elétrica, telefonia, companhias aéreas e plataformas de tecnologia', 'Questões educacionais e universitárias, incluindo mandado de segurança quando cabível'] },
-    { id: 'civil-familia', title: 'Direito civil e família', description: 'Vínculos, patrimônio e momentos de reorganização da vida.', items: ['Divórcio, guarda e situações de violência doméstica', 'Alteração de nome e de gênero', 'Inventário, inventário negativo e alvarás', 'Ações indenizatórias, acidentes de trânsito e precatórios'] },
-    { id: 'bancario', title: 'Direito bancário', description: 'Análise das relações entre pessoas e instituições financeiras.', items: ['Nulidade e revisão de contratos bancários', 'Demandas relacionadas ao golpe do Pix', 'Portabilidade de contratos'] },
-    { id: 'previdenciario', title: 'Direito previdenciário', description: 'Orientação sobre aposentadoria e benefícios.', items: ['Aposentadoria', 'Revisão de benefício previdenciário'] },
-    { id: 'tributario', title: 'Direito tributário', description: 'Análise de questões e possibilidades na área tributária.', items: ['Incentivos fiscais', 'Análise de possibilidades legais de redução de tributos'] },
-    { id: 'contratos', title: 'Contratos e empresas', description: 'Clareza e responsabilidade nas relações contratuais.', items: ['Análise e elaboração de contratos de prestação de serviços e de aluguel', 'Compra de insumos e serviços', 'Apoio a reorganizações societárias, due diligence e fusões e aquisições, quando aplicável'] },
+    { id: 'consumidor', audience: 'pessoas', title: 'Direito do consumidor', description: 'Relações de consumo, contratos e prestação de serviços.', items: ['Má prestação de serviços, cancelamento e nulidade de contratos', 'Demandas envolvendo energia elétrica, telefonia, companhias aéreas e plataformas de tecnologia', 'Questões educacionais e universitárias, incluindo mandado de segurança quando cabível'] },
+    { id: 'civil-familia', audience: 'pessoas', title: 'Direito civil e família', description: 'Vínculos, patrimônio e momentos de reorganização da vida.', items: ['Divórcio, guarda e situações de violência doméstica', 'Alteração de nome e de gênero', 'Inventário, inventário negativo e alvarás', 'Ações indenizatórias, acidentes de trânsito e precatórios'] },
+    { id: 'bancario', audience: 'pessoas', title: 'Direito bancário', description: 'Análise das relações entre pessoas e instituições financeiras.', items: ['Nulidade e revisão de contratos bancários', 'Demandas relacionadas ao golpe do Pix', 'Portabilidade de contratos'] },
+    { id: 'previdenciario', audience: 'pessoas', title: 'Direito previdenciário', description: 'Orientação sobre aposentadoria e benefícios.', items: ['Aposentadoria', 'Revisão de benefício previdenciário'] },
+    { id: 'tributario', audience: 'empresas', title: 'Direito tributário', description: 'Análise de questões e possibilidades na área tributária.', items: ['Incentivos fiscais', 'Análise de possibilidades legais de redução de tributos'] },
+    { id: 'contratos', audience: 'empresas', title: 'Contratos e empresas', description: 'Clareza e responsabilidade nas relações contratuais.', items: ['Análise e elaboração de contratos de prestação de serviços e de aluguel', 'Compra de insumos e serviços', 'Apoio a reorganizações societárias, due diligence e fusões e aquisições, quando aplicável'] },
+  ],
+  process: [
+    { title: 'Você escreve', text: 'Descreva por e-mail, em poucas linhas, a situação e o que você precisa. Não é necessário enviar documentos neste primeiro contato.' },
+    { title: 'Escuta e análise', text: 'Joyce responde para entender o contexto, esclarecer dúvidas iniciais e avaliar se a questão está dentro da sua área de atuação.' },
+    { title: 'Próximos passos', text: 'Havendo atuação, o escopo e as condições são combinados por escrito antes de qualquer providência.' },
   ],
   timeline: [
     { date: '2014', name: 'Advocacia Hernandes Blanco', text: 'Atuação como auxiliar administrativo júnior no contencioso de cobrança de dívidas oriundas de financiamento de veículos.' },
@@ -49,4 +58,7 @@ export const siteContent = {
     { src: './assets/vivencia-5.webp', width: 720, height: 960, alt: 'Quatro pessoas reunidas em uma fotografia em grupo.', caption: 'Relações e convivência' },
   ],
   testimonials: [] as { text: string; author: string }[],
+  /** Artigos curtos de orientação. A seção só aparece quando houver ao menos um item.
+   *  Ex.: { title: 'Caí no golpe do Pix: e agora?', date: '2026-11-03', summary: '...', url: 'https://...' } */
+  articles: [] as { title: string; date: string; summary: string; url: string }[],
 };

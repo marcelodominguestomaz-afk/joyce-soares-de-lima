@@ -24,7 +24,7 @@ Sem `SITE_URL`, a imagem de prévia fica com caminho relativo e as redes sociais
 
 ## Conteúdo e configuração
 
-- `src/data/siteContent.ts` — identidade, contato, áreas de atuação, trajetória, formações e galeria.
+- `src/data/siteContent.ts` — identidade, contato, públicos e áreas de atuação, etapas do atendimento, trajetória, formações, galeria, artigos e retrato opcional.
 - `src/App.tsx` — seções e interações de navegação, detalhes, abas, galeria, privacidade e créditos.
 - `src/styles.css` — identidade visual e regras de adaptação de tela.
 - `public/assets/` — imagens e fontes servidas pelo próprio site.
@@ -39,7 +39,8 @@ O fluxo `.github/workflows/deploy.yml` é acionado manualmente na aba **Actions 
 ## Antes de publicar
 
 - [ ] Inserir o número da OAB em `siteContent.oab` (ex.: `'OAB/SP 123.456'`).
-- [ ] Revisar os textos com Joyce.
+- [ ] Revisar os textos com Joyce, em especial as etapas de “Como funciona” (`siteContent.process`), que descrevem o atendimento.
+- [ ] Opcional: publicar artigos curtos de orientação e listá-los em `siteContent.articles`. A seção “Conteúdos” só aparece quando houver ao menos um.
 - [ ] Confirmar a autorização de uso de imagem das pessoas que aparecem nas fotografias de vivências.
 - [ ] Opcional, mas recomendado: incluir um retrato de Joyce em `public/assets/` e preenchê-lo em `siteContent.portrait`. Ele aparece na seção “Sobre”.
 - [ ] Definir `SITE_URL` com o domínio final.
